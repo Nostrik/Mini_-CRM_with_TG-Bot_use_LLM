@@ -1,0 +1,21 @@
+# секреты и локальные данные: в образ попадать не должны
+.env
+*.env
+crm.db
+crm.db-wal
+crm.db-shm
+logs/
+
+# окружение и кэши
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.idea/
+.vscode/
+
+# служебное
+.git/
+.gitignore
+tests/
+structure-proj.txt

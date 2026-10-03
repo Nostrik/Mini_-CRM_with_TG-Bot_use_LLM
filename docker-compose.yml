@@ -1,0 +1,59 @@
+# Мини-CRM: бот и CRM в одном контейнере (start.py), база на постоянном томе.
+#
+# Запуск:               docker compose up -d --build
+# Запуск с HTTPS:       docker compose --profile https up -d --build   (нужен домен, см. DEPLOY.md)
+# Логи:                 docker compose logs -f
+# Остановка:            docker compose down        (том с базой сохраняется)
+# ВНИМАНИЕ: `docker compose down -v` удалит том вместе с базой лидов и пользователей!
+
+services:
+  mini-crm:
+    build: .
+    image: mini-crm:latest
+    container_name: mini-crm          # имя нужно для команд вроде `docker exec mini-crm ...`
+    restart: unless-stopped
+    env_file: .env                    # TELEGRAM_BOT_TOKEN, OPENROUTER_API_KEY, ADMIN_API_KEY и т.д.
+    environment:
+      DB_PATH: /data/crm.db           # база лежит на томе crm-data
+      PORT: "8501"
+    ports:
+      # По умолчанию CRM открыта на порту 8501 снаружи (http://IP-сервера:8501).
+      # С профилем https поставьте в .env BIND_ADDR=127.0.0.1: тогда порт виден только прокси.
+      - "${BIND_ADDR:-0.0.0.0}:8501:8501"
+    volumes:
+      - crm-data:/data
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8501/_stcore/health', timeout=5)"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"               # логи Docker не разрастаются бесконечно
+        max-file: "3"
+
+  # Необязательный HTTPS-прокси: включается только с `--profile https`.
+  # Нужен домен, у которого A-запись указывает на IP сервера, и открытые порты 80 и 443.
+  caddy:
+    image: caddy:2
+    profiles: ["https"]
+    container_name: mini-crm-caddy
+    restart: unless-stopped
+    depends_on:
+      - mini-crm
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      DOMAIN: ${DOMAIN:-}             # задаётся в .env, например crm.example.com
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy-data:/data              # сертификаты Let's Encrypt
+      - caddy-config:/config
+
+volumes:
+  crm-data:
+  caddy-data:
+  caddy-config:

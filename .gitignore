@@ -1,0 +1,49 @@
+# --- Секреты и конфигурация ---
+.env
+.env.*
+!.env.example
+
+# --- Python ---
+.venv/
+venv/
+env/
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.eggs/
+dist/
+build/
+*.egg
+
+# --- IDE ---
+.idea/
+.vscode/
+*.iml
+*.swp
+*.swo
+
+# --- Сборка ---
+bin/
+build/
+
+# --- Базы данных и кэш ---
+*.db
+*.sqlite
+*.sqlite3
+chat_cache.db
+__pycache__/
+
+# --- Логи ---
+logs/
+*.log
+
+# --- Системные файлы ОС ---
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# --- Служебные/временные файлы ---
+structure.txt
+*.tmp
+*.bak

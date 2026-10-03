@@ -1,0 +1,6 @@
+# Обратный прокси с автоматическим HTTPS (сертификат Let's Encrypt выпускается сам).
+# Домен берётся из переменной DOMAIN (.env). WebSocket, нужный Streamlit, Caddy проксирует сам.
+{$DOMAIN} {
+	encode gzip
+	reverse_proxy mini-crm:8501
+}
