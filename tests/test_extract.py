@@ -1,8 +1,8 @@
-"""Тесты extract.py. Сеть не нужна: LLM подменена заглушкой FakeLLM."""
+"""Тесты extract2.py. Сеть не нужна: LLM подменена заглушкой FakeLLM."""
 import pytest
 from pydantic import ValidationError
 
-from extract import (
+from extract2 import (
     ALLOWED_TAGS,
     DEFAULT_TAG,
     MAX_REQUEST_LEN,

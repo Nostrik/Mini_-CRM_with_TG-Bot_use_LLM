@@ -9,7 +9,7 @@
     APP_TZ        - часовой пояс для отображения времени, по умолчанию Europe/Moscow
                     (на Windows для названий поясов нужен пакет tzdata: poetry add tzdata)
 
-Бот (bot.py) и этот интерфейс - отдельные процессы, общаются только через файл БД.
+Бот (bot2.py) и этот интерфейс - отдельные процессы, общаются только через файл БД.
 """
 from __future__ import annotations
 
@@ -26,7 +26,7 @@ st.set_page_config(page_title="Мини-CRM", page_icon="📋", layout="wide")
 
 import auth  # noqa: E402
 import db  # noqa: E402
-from extract import ALLOWED_TAGS  # noqa: E402
+from extract2 import ALLOWED_TAGS  # noqa: E402
 from logger import AppLogger  # noqa: E402
 
 SOURCE_LABELS = {"bot": "Telegram-бот", "manual": "Вручную", "tg_account": "Telegram-аккаунт"}

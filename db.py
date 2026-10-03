@@ -28,7 +28,7 @@ from dotenv import load_dotenv
 from logger import AppLogger
 
 if TYPE_CHECKING:  # только для подсказок типов, чтобы db.py не тянул extract и openrouter_api
-    from extract import LeadDraft
+    from extract2 import LeadDraft
 
 load_dotenv()
 
@@ -345,7 +345,7 @@ async def create_lead(
     telegram_id: Optional[int] = None,
     telegram_username: Optional[str] = None,
 ) -> int:
-    """Сохраняет черновик заявки (LeadDraft из extract.py) как лид. Возвращает id лида."""
+    """Сохраняет черновик заявки (LeadDraft из extract2.py) как лид. Возвращает id лида."""
     try:
         return await asyncio.to_thread(
             create_lead_sync,
@@ -361,4 +361,3 @@ async def create_lead(
     except Exception:
         log.error("Ошибка сохранения лида в БД", exc_info=True)
         raise
-    
