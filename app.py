@@ -26,7 +26,7 @@ st.set_page_config(page_title="Мини-CRM", page_icon="📋", layout="wide")
 
 import auth  # noqa: E402
 import db  # noqa: E402
-from extract2 import ALLOWED_TAGS  # noqa: E402
+from extract import ALLOWED_TAGS  # noqa: E402
 from logger import AppLogger  # noqa: E402
 
 SOURCE_LABELS = {"bot": "Telegram-бот", "manual": "Вручную", "tg_account": "Telegram-аккаунт"}
