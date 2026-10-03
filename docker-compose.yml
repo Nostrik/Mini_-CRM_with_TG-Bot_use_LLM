@@ -58,4 +58,3 @@ volumes:
   crm-data:
   caddy-data:
   caddy-config:
-    
