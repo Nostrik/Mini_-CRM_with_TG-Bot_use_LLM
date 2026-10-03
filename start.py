@@ -30,7 +30,7 @@ def log(message: str) -> None:
 
 def build_commands() -> dict[str, list[str]]:
     return {
-        "bot": [sys.executable, "bot2.py"],
+        "bot": [sys.executable, "bot.py"],
         "crm": [
             sys.executable, "-m", "streamlit", "run", "app.py",
             "--server.port", PORT,
