@@ -15,6 +15,7 @@ services:
     env_file: .env                    # TELEGRAM_BOT_TOKEN, OPENROUTER_API_KEY, ADMIN_API_KEY и т.д.
     environment:
       DB_PATH: /data/crm.db           # база лежит на томе crm-data
+      LOG_DIR: /data/logs             # логи на томе: переживают пересборку, размер ограничен ротацией
       PORT: "8501"
     ports:
       # По умолчанию CRM открыта на порту 8501 снаружи (http://IP-сервера:8501).
@@ -57,3 +58,4 @@ volumes:
   crm-data:
   caddy-data:
   caddy-config:
+    

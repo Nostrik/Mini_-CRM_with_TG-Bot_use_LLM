@@ -77,7 +77,8 @@ def main() -> int:
 
     procs: dict[str, subprocess.Popen] = {}
     for name, command in build_commands().items():
-        procs[name] = subprocess.Popen(command)
+        # свой файл лога у каждого процесса (bot.log, crm.log): ротация одного файла двумя процессами небезопасна
+        procs[name] = subprocess.Popen(command, env={**os.environ, "LOG_NAME": name})
         log(f"запущен процесс '{name}' (pid {procs[name].pid})")
     log(f"CRM доступна на порту {PORT}")
 
